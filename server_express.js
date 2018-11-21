@@ -3,10 +3,21 @@ const app = express();
 const querystring = require('querystring');
 
 
+app.use('/css',express.static(__dirname + '/public/css'))
+app.use('/',(req,res, next)=>{
+    console.log(`Someone made a request for ${req.url}`);
+    res.cookie('cookiname', 'cookievalue');
+    next();
+});
+
+
 app.get('/', (req, res) => {
     res.send(`
         <html>
-            <body style="background:red">
+            <head>
+                <link rel="stylesheet" href="/css/styles.css"/>
+            </head>
+            <body>
                 Hello dudes
             </body>
         </html>
